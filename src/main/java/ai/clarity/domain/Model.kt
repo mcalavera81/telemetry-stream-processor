@@ -25,7 +25,7 @@ infix fun Host.to(destination:Host)=
         NetConnectionEvent(this, destination)
 
 
-sealed class Event(val timestamp: Timestamp= Timestamp()){
+sealed class Event(private val timestamp: Timestamp= Timestamp()){
     val instant: Instant
         get() = Instant.ofEpochSecond(timestamp.unixEpoch)
     val dateTime: ZonedDateTime

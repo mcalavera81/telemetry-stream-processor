@@ -3,10 +3,9 @@ package ai.clarity.query
 import ai.clarity.domain.Event
 import ai.clarity.domain.Host
 import ai.clarity.domain.NetConnectionEvent
-import java.time.Instant
 
 
-class MaxConnectionsWindowedView():WindowedView {
+class MaxConnectionsWindowedView :WindowedView {
 
     override fun applyEvents(vararg events: Event) {
 
@@ -14,14 +13,10 @@ class MaxConnectionsWindowedView():WindowedView {
             when (event) {
                 is NetConnectionEvent -> {
                     if (event.fromHost != event.toHost) {
-                        state.hostMapConns.put(
-                                event.fromHost,
-                                state.hostMapConns
-                                        .getOrDefault(event.fromHost, 0) + 1)
-                        state.hostMapConns.put(
-                                event.toHost,
-                                state.hostMapConns
-                                        .getOrDefault(event.toHost, 0) + 1)
+                        state.hostMapConns[event.fromHost] =
+                                state.hostMapConns.getOrDefault(event.fromHost, 0) + 1
+                        state.hostMapConns[event.toHost] =
+                                state.hostMapConns.getOrDefault(event.toHost, 0) + 1
                     }
                     state
                 }

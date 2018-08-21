@@ -1,16 +1,13 @@
 package ai.clarity.query
 
 import ai.clarity.domain.Host
-import ai.clarity.domain.NetConnectionEvent
 import ai.clarity.domain.NotDefinedEvent
 import ai.clarity.domain.to
-import ai.clarity.query.InboundConnectionsWindowedViewTest.Companion.someOrigin
 import ai.clarity.query.OutboundConnectionsWindowedViewTest.OutboundConnectionsProcessorTestListener.view
 import io.kotlintest.Description
 import io.kotlintest.be
 import io.kotlintest.extensions.TestListener
 import io.kotlintest.should
-import io.kotlintest.shouldBe
 import io.kotlintest.specs.BehaviorSpec
 import mu.KLogging
 
@@ -85,7 +82,7 @@ class OutboundConnectionsWindowedViewTest : BehaviorSpec(){
 
         lateinit var view :OutboundConnectionsWindowedView
 
-        override fun beforeTest(description: Description): Unit {
+        override fun beforeTest(description: Description){
             view = OutboundConnectionsWindowedView(target)
         }
 

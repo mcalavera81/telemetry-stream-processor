@@ -21,16 +21,15 @@ fun tailFile(filename:String, consumeEvent: (NetConnectionEvent)-> Unit){
     while (true) {
         currentLine = input.readLine()
         if (currentLine != null && currentLine.isNotBlank()) {
-            println(currentLine)
             consumeEvent(currentLine.toEvent())
-            continue;
+            continue
         }
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1000)
         } catch (e:InterruptedException) {
-            Thread.currentThread().interrupt();
-            break;
+            Thread.currentThread().interrupt()
+            break
         }
 
     }

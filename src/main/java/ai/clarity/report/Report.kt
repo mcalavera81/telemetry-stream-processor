@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 
 
 class Reporter(str: String="") {
-    val output:Writer
+    private val output:Writer
 
     init {
         output = PrintWriter(
@@ -19,17 +19,17 @@ class Reporter(str: String="") {
     }
 
     companion object {
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:00")
+        val formatter:DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:00")
 
     }
     fun printBucketReport(viewReports: List<String>,
                           dt: ZonedDateTime){
         val bucket = formatter.format(dt)
-        output.write("Report for  $bucket \n")
+        output.write("Report for  $bucket \n\n")
         output.write(viewReports.joinToString("\n"))
         output.write("\n")
         output.write("-".repeat(10))
-        output.write("\n")
+        output.write("\n\n")
         output.flush()
 
     }

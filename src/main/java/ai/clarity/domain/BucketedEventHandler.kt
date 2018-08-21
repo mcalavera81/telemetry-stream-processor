@@ -40,8 +40,8 @@ class BucketedEventHandler(
         } else if (isEventInNextBucket(event)) {
             nextBucketBuffer.add(event)
             if (isGracePeriodOver(event)) {
-                flushBucket()
-                val nextBucketEventsHeldUp = advanceBucket(event)
+                flushCompletedBucket()
+                val nextBucketEventsHeldUp = moveStateToNextBucket(event)
                 return nextBucketEventsHeldUp
             }
         }
@@ -55,15 +55,15 @@ class BucketedEventHandler(
     private val isEventInCurrentBucket:(Event)->Boolean=
             {it.dateTime.hour==currentHour}
 
-    private fun advanceBucket(event: Event):List<Event> {
+    private fun moveStateToNextBucket(event: Event):List<Event> {
         val events = nextBucketBuffer
         currentHour = event.dateTime.hour
         reportDateTime = event.dateTime
-        nextBucketBuffer = mutableListOf<Event>()
+        nextBucketBuffer = mutableListOf()
         return events
     }
 
-    private fun flushBucket() {
+    private fun flushCompletedBucket() {
         val map = views.map { it.reportStatus() }
         reporter.printBucketReport(map,reportDateTime)
     }

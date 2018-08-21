@@ -1,7 +1,6 @@
 package ai.clarity.query
 
 import ai.clarity.domain.Host
-import ai.clarity.domain.NetConnectionEvent
 import ai.clarity.domain.NotDefinedEvent
 import ai.clarity.domain.to
 import ai.clarity.query.InboundConnectionsWindowedViewTest.InboundConnectionsProcessorTestListener.view
@@ -73,7 +72,7 @@ class InboundConnectionsWindowedViewTest : BehaviorSpec(){
 
         lateinit var view :InboundConnectionsWindowedView
 
-        override fun beforeTest(description: Description): Unit {
+        override fun beforeTest(description: Description){
             view = InboundConnectionsWindowedView(target)
         }
 

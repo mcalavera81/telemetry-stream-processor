@@ -57,3 +57,35 @@ want to write the report to a file you must use **--output** flag
 java -jar  ./build/libs/telemetry-stream-processor-1.0.jar \
     --inbound pepe --outbound pepe --input ~/pepe.txt --output ~/out.txt  --batch
 ```
+
+### Sample Run
+
+```
+java -jar  ./build/libs/telemetry-stream-processor-1.0.jar \
+    --inbound brunt --outbound quark --input ./demo.txt   --batch
+``` 
+Output:
+
+```
+Report for  20/08/2018 - 12:00 
+Inbound connections: [garak] for Host: brunt
+Outbound connections: [garak] for Host: quark
+Host garak generated max conns (2)
+----------
+Report for  20/08/2018 - 01:00 
+Inbound connections: [garak] for Host: brunt
+Outbound connections: [quark] for Host: quark
+Host brunt generated max conns (4)
+----------
+Report for  20/08/2018 - 02:00 
+Inbound connections: [] for Host: brunt
+Outbound connections: [] for Host: quark
+Host lustro generated max conns (3)
+----------
+Report for  20/08/2018 - 03:00 
+Inbound connections: [] for Host: brunt
+Outbound connections: [] for Host: quark
+Host maria generated max conns (1)
+----------
+Used Memory: 18 Mb
+```

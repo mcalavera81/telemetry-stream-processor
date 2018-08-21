@@ -29,8 +29,8 @@ class EventProcessorTest : BehaviorSpec() {
 
                 Then("""Each subscriber should get notified about events"""){
                     eventHandler.handle(event1)
-                    map.get("target1")!! should be(1)
-                    map.get("target2")!! should be(1)
+                    map["target1"]!! should be(1)
+                    map["target2"]!! should be(1)
                 }
             }
 
@@ -46,8 +46,8 @@ class EventProcessorTest : BehaviorSpec() {
                     |in-bucket events""".trimMargin()){
                     eventHandler.handle(event1)
                     eventHandler.handle(event2)
-                    map.get("target1")!! should be(1)
-                    map.get("target2")!! should be(1)
+                    map["target1"]!! should be(1)
+                    map["target2"]!! should be(1)
                 }
             }
 
@@ -63,8 +63,8 @@ class EventProcessorTest : BehaviorSpec() {
                     |in-bucket events""".trimMargin()){
                     eventHandler.handle(event1)
                     eventHandler.handle(event2)
-                    map.get("target1")!! should be(1)
-                    map.get("target2")!! should be(1)
+                    map["target1"]!! should be(1)
+                    map["target2"]!! should be(1)
                 }
             }
 
@@ -85,13 +85,13 @@ class EventProcessorTest : BehaviorSpec() {
                     eventHandler.handle(event1)
                     eventHandler.handle(event2)
 
-                    map.get("target1")!! should be(1)
-                    map.get("target2")!! should be(1)
+                    map["target1"]!! should be(1)
+                    map["target2"]!! should be(1)
                     eventHandler.handle(event3)
                     view1.countReset should be(1)
                     view2.countReset should be(1)
-                    map.get("target1")!! should be(2)
-                    map.get("target2")!! should be(2)
+                    map["target1"]!! should be(2)
+                    map["target2"]!! should be(2)
                 }
             }
         }
@@ -99,7 +99,7 @@ class EventProcessorTest : BehaviorSpec() {
 }
 
 
-class WindowedViewStub(val target: String) : WindowedView {
+class WindowedViewStub(private val target: String) : WindowedView {
 
     var countReset:Int =0
 
@@ -111,7 +111,7 @@ class WindowedViewStub(val target: String) : WindowedView {
 
     override fun applyEvents(vararg events: Event) {
         events.forEach {
-            map.put(target, map.computeIfAbsent(target, { 0 }) + 1)
+            map[target] = map.computeIfAbsent(target) { 0 } + 1
         }
 
     }
@@ -120,14 +120,14 @@ class WindowedViewStub(val target: String) : WindowedView {
 object EventProcessorTestListener : TestListener {
 
     lateinit var eventHandler : BucketedEventHandler
-    val reporter = Reporter()
+    private val reporter = Reporter()
     lateinit var map: MutableMap<String, Int>
 
 
     val view1 = WindowedViewStub("target1")
     val view2 = WindowedViewStub("target2")
 
-    override fun beforeTest(description: Description): Unit {
+    override fun beforeTest(description: Description){
 
 
         eventHandler = BucketedEventHandler(
@@ -136,7 +136,7 @@ object EventProcessorTestListener : TestListener {
                 reporter)
         eventHandler.subscribe(view1)
         eventHandler.subscribe(view2)
-        map= mutableMapOf<String, Int>()
+        map= mutableMapOf()
     }
 
 

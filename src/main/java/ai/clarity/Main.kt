@@ -29,5 +29,5 @@ fun main(args: Array<String>) = mainBody{
 
 
     val rt = Runtime.getRuntime()
-    println("Used Memory: ${(rt.totalMemory() - rt.freeMemory())/ 1024 / 1024} Mb");
+    println("Used Memory: ${(rt.totalMemory() - rt.freeMemory())/ 1024 / 1024} Mb")
 }

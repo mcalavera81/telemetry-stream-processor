@@ -9,7 +9,7 @@ import mu.KLogging
 
 class ParserTest: BehaviorSpec(){
 
-    val testFilename = "/parser/network-connections.txt"
+    private val testFilename = "/parser/network-connections.txt"
     companion object: KLogging()
 
     init{
@@ -40,9 +40,7 @@ class ParserTest: BehaviorSpec(){
         }
     }
 
-    fun String.getPath():String {
-        logger.info("**********************************")
-        logger.info(this)
+    private fun String.getPath():String {
         return this.javaClass::class.java.getResource(this)!!.path
     }
 }

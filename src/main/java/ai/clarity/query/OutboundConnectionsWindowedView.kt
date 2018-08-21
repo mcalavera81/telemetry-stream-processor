@@ -3,9 +3,8 @@ package ai.clarity.query
 import ai.clarity.domain.Event
 import ai.clarity.domain.Host
 import ai.clarity.domain.NetConnectionEvent
-import java.time.Instant
 
-class OutboundConnectionsWindowedView(val targetHost: Host):WindowedView {
+class OutboundConnectionsWindowedView(private val targetHost: Host):WindowedView {
 
 
     override fun applyEvents(vararg events: Event) {

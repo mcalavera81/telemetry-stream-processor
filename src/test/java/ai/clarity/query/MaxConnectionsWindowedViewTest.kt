@@ -13,10 +13,10 @@ import io.kotlintest.specs.BehaviorSpec
 class MaxConnectionsWindowedViewTest: BehaviorSpec() {
     override fun listeners(): List<TestListener> = listOf(MaxConnectionsWindowedViewTestListener)
 
-    val host1 = Host("host1")
-    val host2 = Host("host2")
-    val host3 = Host("host3")
-    val host4 = Host("host4")
+    private val host1 = Host("host1")
+    private val host2 = Host("host2")
+    private val host3 = Host("host3")
+    private val host4 = Host("host4")
 
 
     init {
@@ -48,7 +48,7 @@ class MaxConnectionsWindowedViewTest: BehaviorSpec() {
 
         lateinit var view :MaxConnectionsWindowedView
 
-        override fun beforeTest(description: Description): Unit {
+        override fun beforeTest(description: Description){
             view = MaxConnectionsWindowedView()
         }
 
